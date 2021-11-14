@@ -37,7 +37,6 @@ reserved = {
     'typeof':'TYPE',
     'when':'WHEN',
     'typealias':'TYPEALIAS',
-    'true':'TRUE',
     'by':'BY',
     'setOf':'SET',
     'isEmpty':'EMPTY',
@@ -113,6 +112,11 @@ def t_INTEGERS(t):
 #Fin Alejandro Paz
 
 #Inicio Lenin Freire
+def t_NAME(t):
+    r'(\_*[a-zA-Z]+[\_a-zA-Z0-9]*|\_+[0-9]+[\_a-zA-Z0-9]*)'
+
+    t.type = reserved.get(t.value,'NAME')
+    return t
 
 #Fin Lenin Freire
 
@@ -121,11 +125,12 @@ def t_INTEGERS(t):
 
 #Fin Kevin Bautista
 
-#t_ignore = r' \t'               #FALTA CORREGIR
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
+t_ignore = ' \t'
 
 def t_error(t):
     print("Componente léxico no encontrado '%s'" % t.value[0])
@@ -134,7 +139,7 @@ def t_error(t):
 #Pruebas
 lexer = lex.lex()
 
-data = input("")
+data = input("ingreso: ")
 lexer.input(data)
 
 while True:
