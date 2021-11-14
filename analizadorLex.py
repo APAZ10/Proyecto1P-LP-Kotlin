@@ -52,12 +52,33 @@ reserved = {
 
 
 tokens = (
-    'INTS', 'DOUBLES', 'FLOATS', 'NAME'
+    #Inicio Alejandro Paz
+    'ASSIGN', 'ASSIGNPLUS', 'ASSIGNMINUS', 'INCREMENT', 'DECREMENT',
+    'PLUS', 'MINUS', 'MULTIPLY', 'DIVISION', 'MODULO',
+    #Fin Alejandro Paz
+
+    #Inicio Lenin Freire
+
+    #Fin Lenin Freire
+
+    #Inicio Kevin Bautista
+
+    #'INTS', 'DOUBLES', 'FLOATS', 'NAME'
+    #Fin Kevin Bautista
 ) + tuple(reserved.values())
 
 
 #Inicio Alejandro Paz
-
+t_ASSIGN = r'\='
+t_ASSIGNPLUS = r'\+\='
+t_ASSIGNMINUS = r'\-\='
+t_INCREMENT = r'\+\+'
+t_DECREMENT = r'\-\-'
+t_PLUS = r'\+'
+t_MINUS = r'\-'
+t_MULTIPLY = r'\*'
+t_DIVISION = r'\/'
+t_MODULO = r'\%'
 #Fin Alejandro Paz
 
 #Inicio Lenin Freire
