@@ -20,11 +20,28 @@ reserved = {
     'false':'FALSE',
     'mutableListOf': 'LIST',
     'add': 'ADD',
-    'removeAt': 'REMOVEAT'
+    'removeAt': 'REMOVEAT',
     #Fin Alejandro Paz
 
     #Inicio Lenin Freire
-
+    'package':'PACKAGE',
+    'super':'SUPER',
+    'this':'THIS',
+    'throw':'THROW',
+    'try':'TRY',
+    'do':'DO',
+    'in':'IN',
+    'interface':'INTERFACE',
+    'is':'IS',
+    'object':'OBJECT',
+    'typeof':'TYPE',
+    'when':'WHEN',
+    'typealias':'TYPEALIAS',
+    'true':'TRUE',
+    'by':'BY',
+    'setOf':'SET',
+    'isEmpty':'EMPTY',
+    'contains':'CONTAINS',
     #Fin Lenin Freire
 
 
