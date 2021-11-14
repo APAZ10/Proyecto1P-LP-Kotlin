@@ -58,13 +58,13 @@ tokens = (
     #Fin Alejandro Paz
 
     #Inicio Lenin Freire
-    'GREATER', 'GREATEREQUAL', 'LOWER,', 'LOWEREQUAL', 'EQUALS', 'NOT',
+    'GREATER', 'GREATEREQUAL', 'LOWER', 'LOWEREQUAL', 'EQUALS', 'NOT',
     'NOTEQUALS', 'AND', 'OR',
     #Fin Lenin Freire
 
     #Inicio Kevin Bautista
 
-    #'INTS', 'DOUBLES', 'FLOATS', 'NAME'
+    'INTEGERS', 'DECIMALS', 'NAME'
     #Fin Kevin Bautista
 ) + tuple(reserved.values())
 
@@ -99,6 +99,37 @@ t_OR = r'\|\|'
 
 #Fin Kevin Bautista
 
+#Inicio Alejandro Paz               #FALTA CORREGIR
+def t_DECIMALS(t):
+    r'(\-|\+)?\d+\.\d+'
+    t.value = float(t.value[:-1])
+    return t
+
+def t_INTEGERS(t):
+    r'(\-|\+)?\d+'
+    t.value = int(t.value)
+    return t
+
+#Fin Alejandro Paz
+
+#Inicio Lenin Freire
+
+#Fin Lenin Freire
+
+
+#Inicio Kevin Bautista
+
+#Fin Kevin Bautista
+
+#t_ignore = r' \t'               #FALTA CORREGIR
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+def t_error(t):
+    print("Componente léxico no encontrado '%s'" % t.value[0])
+    t.lexer.skip(1)
 
 #Pruebas
 lexer = lex.lex()
