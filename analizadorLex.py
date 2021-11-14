@@ -58,7 +58,8 @@ tokens = (
     #Fin Alejandro Paz
 
     #Inicio Lenin Freire
-
+    'GREATER', 'GREATEREQUAL', 'LOWER,', 'LOWEREQUAL', 'EQUALS', 'NOT',
+    'NOTEQUALS', 'AND', 'OR',
     #Fin Lenin Freire
 
     #Inicio Kevin Bautista
@@ -82,7 +83,15 @@ t_MODULO = r'\%'
 #Fin Alejandro Paz
 
 #Inicio Lenin Freire
-
+t_GREATER = r'\>'
+t_GREATEREQUAL = r'\>\='
+t_LOWER = r'\<'
+t_LOWEREQUAL = r'\<\='
+t_EQUALS = r'\=\='
+t_NOT = r'\!'
+t_NOTEQUALS = r'\!\='
+t_AND = r'\&\&'
+t_OR = r'\|\|'
 #Fin Lenin Freire
 
 
