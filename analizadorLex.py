@@ -203,6 +203,8 @@ fun resta_numeros(n1:Int,n2:Int):Int{
 
 var numero1=34
 var numero2=50
+numero2++
+numero2+=2
 var numero3:Float=3.456
 
 if(numero1!=numero2){
@@ -217,10 +219,16 @@ class account(){
     var amount:Float=3.56
     
     fun deposito(){
-        print("Se ha realizado un deposito"
+        print("Se ha realizado un deposito")
     } 
 }
 
+val intSet = setOf(2,6,4,29,4,5)
+println(intSet.contains(5))
+println(intSet.isEmpty())
+var mutableList1 = mutableListOf("Ajay","Vijay")  
+mutableList1.add("Prakash")
+mutableList1.removeAt(1)
 '''
 
 lexer.input(data)
