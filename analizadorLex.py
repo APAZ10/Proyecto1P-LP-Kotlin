@@ -38,14 +38,32 @@ reserved = {
     'when':'WHEN',
     'typealias':'TYPEALIAS',
     'by':'BY',
-    'setOf':'SET',
+    'setOf':'SETOF',
     'isEmpty':'EMPTY',
     'contains':'CONTAINS',
     #Fin Lenin Freire
 
 
     #Inicio Kevin Bautista
-
+    'catch':'CATCH',
+    'delegate':'DELEGATE',
+    'set':'SET',
+    'constructor':'CONSTRUCTOR',
+    'dynamic':'DYNAMIC',
+    'field':'FIELD',
+    'file':'FILE',
+    'finally':'FINALLY',
+    'get':'GET',
+    'import':'IMPORT',
+    'init':'INIT',
+    'param':'PARAM',
+    'property':'PROPERTY',
+    'receiver':'RECEIVER',
+    'setparam':'SETPARAM',
+    'value':'VALUE',
+    'where':'WHERE',
+    'plus':'PLUSSTRING',
+    'equals':'EQUALSSTRING'
     #Fin Kevin Bautista
 }
 
@@ -63,7 +81,8 @@ tokens = (
 
     #Inicio Kevin Bautista
 
-    'INTEGERS', 'DECIMALS', 'NAME'
+    'LPARENTH','RPARENTH','LBRACKET','RBRACKET','LCBRACKET',
+    'RCBRACKET','INTEGERS', 'DECIMALS', 'NAME', 'STRINGS', 'CHARS' 
     #Fin Kevin Bautista
 ) + tuple(reserved.values())
 
@@ -95,13 +114,18 @@ t_OR = r'\|\|'
 
 
 #Inicio Kevin Bautista
-
+t_LPARENTH = r'\('
+t_RPARENTH = r'\)'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+t_LCBRACKET = r'\{'
+t_RCBRACKET = r'\}'
 #Fin Kevin Bautista
 
-#Inicio Alejandro Paz               #FALTA CORREGIR
+#Inicio Alejandro Paz               
 def t_DECIMALS(t):
     r'(\-|\+)?\d+\.\d+'
-    t.value = float(t.value[:-1])
+    t.value = float(t.value)
     return t
 
 def t_INTEGERS(t):
@@ -122,7 +146,15 @@ def t_NAME(t):
 
 
 #Inicio Kevin Bautista
+def t_STRINGS(t):
+    r'\"[^\n\"]*\"'
+    t.type = reserved.get(t.value, 'STRINGS')
+    return t
 
+def t_CHARS(t):
+    r'\'[^\n\']\''
+    t.type = reserved.get(t.value,'CHARS')
+    return t
 #Fin Kevin Bautista
 
 
