@@ -21,6 +21,8 @@ reserved = {
     'mutableListOf': 'LIST',
     'add': 'ADD',
     'removeAt': 'REMOVEAT',
+    'println':'PRINTLN',
+    'print':'PRINT',
     #Fin Alejandro Paz
 
     #Inicio Lenin Freire
@@ -182,7 +184,45 @@ def t_error(t):
 #Pruebas
 lexer = lex.lex()
 
-data = input("ingreso: ")
+#data = input("ingreso: ")
+data='''
+var saludo:Boolean=true
+val suma_numeros:Int=5+6
+
+var contador=0
+while(contador<10){
+    contador++
+}
+for(i in "hola mundo"){
+    println(i)
+}
+
+fun resta_numeros(n1:Int,n2:Int):Int{
+    return n1+n2
+}
+
+var numero1=34
+var numero2=50
+var numero3:Float=3.456
+
+if(numero1!=numero2){
+    println("Los numeros son diferentes")
+}else{
+    print("Los numero son iguales")
+}
+
+class account(){
+    var acc:Int=0
+    var name:String="mi cuenta"
+    var amount:Float=3.56
+    
+    fun deposito(){
+        print("Se ha realizado un deposito"
+    } 
+}
+
+'''
+
 lexer.input(data)
 
 while True:
