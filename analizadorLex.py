@@ -41,6 +41,15 @@ reserved = {
     'setOf':'SETOF',
     'isEmpty':'EMPTY',
     'contains':'CONTAINS',
+    'Int':'INT',
+    'Float':'FLOAT',
+    'Double':'Double',
+    'Char':'CHAR',
+    'String':'STRING',
+    'Byte':'Byte',
+    'Long':'LONG',
+    'Short':'SHORT',
+    'Boolean':'boolean',
     #Fin Lenin Freire
 
 
@@ -121,6 +130,8 @@ t_RBRACKET = r'\]'
 t_LCBRACKET = r'\{'
 t_RCBRACKET = r'\}'
 #Fin Kevin Bautista
+
+literals = [',','.',':',';']
 
 #Inicio Alejandro Paz               
 def t_DECIMALS(t):
