@@ -45,13 +45,13 @@ reserved = {
     'contains':'CONTAINS',
     'Int':'INT',
     'Float':'FLOAT',
-    'Double':'Double',
+    'Double':'DOUBLE',
     'Char':'CHAR',
     'String':'STRING',
-    'Byte':'Byte',
+    'Byte':'BYTE',
     'Long':'LONG',
     'Short':'SHORT',
-    'Boolean':'boolean',
+    'Boolean':'BOOLEAN',
     #Fin Lenin Freire
 
 
@@ -91,7 +91,6 @@ tokens = (
     #Fin Lenin Freire
 
     #Inicio Kevin Bautista
-
     'LPARENTH','RPARENTH','LBRACKET','RBRACKET','LCBRACKET',
     'RCBRACKET','INTEGERS', 'DECIMALS', 'NAME', 'STRINGS', 'CHARS' 
     #Fin Kevin Bautista
@@ -181,55 +180,12 @@ def t_error(t):
     print("Componente léxico no encontrado '%s'" % t.value[0])
     t.lexer.skip(1)
 
-#Pruebas
 lexer = lex.lex()
 
-#data = input("ingreso: ")
-data='''
-var saludo:Boolean=true
-val suma_numeros:Int=5+6
-
-var contador=0
-while(contador<10){
-    contador++
-}
-for(i in "hola mundo"){
-    println(i)
-}
-
-fun resta_numeros(n1:Int,n2:Int):Int{
-    return n1+n2
-}
-
-var numero1=34
-var numero2=50
-numero2++
-numero2+=2
-var numero3:Float=3.456
-
-if(numero1!=numero2){
-    println("Los numeros son diferentes")
-}else{
-    print("Los numero son iguales")
-}
-
-class account(){
-    var acc:Int=0
-    var name:String="mi cuenta"
-    var amount:Float=3.56
-    
-    fun deposito(){
-        print("Se ha realizado un deposito")
-    } 
-}
-
-val intSet = setOf(2,6,4,29,4,5)
-println(intSet.contains(5))
-println(intSet.isEmpty())
-var mutableList1 = mutableListOf("Ajay","Vijay")  
-mutableList1.add("Prakash")
-mutableList1.removeAt(1)
+#Pruebas
 '''
+with open("testFile.txt", "r") as archivo:
+    data = archivo.read()
 
 lexer.input(data)
 
@@ -238,3 +194,4 @@ while True:
     if not tok: 
         break
     print(tok)
+'''
