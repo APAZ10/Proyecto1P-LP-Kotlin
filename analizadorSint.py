@@ -5,8 +5,20 @@ from analizadorLex import tokens
 #Inicio Alejandro Paz
 ''' Completo var saludo:Boolean=true'''
 
+def p_asignacion(p):
+    '''asignacion : asignacionBoolean
+                    | asignacionInt
+    '''
+
 def p_asignacion_boolean(p):
-    '''asignacionBoolean : VAR NAME ':' BOOLEAN ASSIGN condicion
+    '''asignacionBoolean : tipoVariable NAME ':' BOOLEAN ASSIGN condicion
+                            | tipoVariable NAME ASSIGN condicion
+                            | NAME ASSIGN condicion
+    '''
+
+def p_tipo(p):
+    '''tipoVariable : VAR
+                    | VAL
     '''
 
 def p_condicion(p):
@@ -66,6 +78,40 @@ def p_stringoperator(p):
 
 
 #Inicio Lenin Freire
+def p_asignacion_int(p):
+    '''asignacionInt : tipoVariable NAME ':' tipoDatoNumerico ASSIGN resultado
+                        | tipoVariable NAME ASSIGN resultado
+                        | NAME ASSIGN resultado
+                        | NAME ASSIGNMINUS resultado
+                        | NAME ASSIGNPLUS resultado
+    '''
+
+def p_tipodatonumerico(p):
+    '''tipoDatoNumerico : FLOAT
+                        | INT
+                        | DOUBLE
+                        | BYTE
+                        | LONG
+                        | SHORT
+    '''
+
+def p_resultado(p):
+    '''resultado : number
+                    | resultado matOperator resultado
+    '''
+
+def p_resultado_parentesis(p):
+    '''resultado : LPARENTH resultado RPARENTH
+    '''
+
+def p_matoperator(p):
+    '''matOperator : PLUS
+                    | MINUS
+                    | MULTIPLY
+                    | DIVISION
+                    | MODULO
+    '''
+#Arreglar problemas con menos y mas
 
 #Fin Lenin Freire
 
@@ -85,10 +131,22 @@ def p_stringoperator(p):
 
 parser = yacc.yacc()
 
-data = '''
-var saludo:Boolean=(!(1<10)&&(1>0)||('a'=='a'))
-'''
+#data = '''
+#var saludo:Boolean=(!(1<10)&&(1>0)||('a'=='a'))
+#'''
+#data = '''
+#var numero=1
+#'''
 #with open("testFile.txt", "r") as archivo:
 #    data = archivo.read()
 
-parser.parse(data)
+#parser.parse(data)
+
+while True:
+   try:
+       s = input('valor > ')
+   except EOFError:
+       break
+   if not s: continue
+   result = parser.parse(s)
+   print(result)
