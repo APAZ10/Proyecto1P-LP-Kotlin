@@ -3,6 +3,7 @@ from analizadorLex import tokens
 
 def p_sentencia(p):
     '''statement : asignacion
+                    | metodos
     '''
 
 #Inicio Alejandro Paz
@@ -12,6 +13,8 @@ def p_asignacion(p):
     '''asignacion : asignacionBoolean
                     | asignacionInt
                     | asignacionString
+                    | asignacionChar
+                    | asignacionLista
     '''
 
 def p_asignacion_boolean(p):
@@ -154,12 +157,54 @@ def p_metodoequalsstring(p):
 
 #Fin Lenin Freire
 
-
-
-
-
 #Inicio Kevin Bautista
-''' , '''
+def p_metodos(p):
+    '''metodos : metodoAddLista
+                | equalsString
+                | metodoPlus
+    '''
+def p_asignacion_char(p):
+    '''asignacionChar : tipoVariable NAME ':' CHAR ASSIGN CHARS
+                        | tipoVariable NAME ASSIGN CHARS
+                        | NAME ASSIGN CHARS
+    '''
+
+def p_asignacion_lista(p):
+    '''asignacionLista : tipoVariable NAME ASSIGN LIST LOWER todoTipoDato GREATER LPARENTH RPARENTH
+                        | tipoVariable NAME ASSIGN LIST LOWER todoTipoDato GREATER LPARENTH contenidoLista RPARENTH
+                        | tipoVariable NAME ASSIGN LIST LPARENTH contenidoLista RPARENTH
+    '''
+
+def p_metodo_add_lista(p):
+    '''metodoAddLista : NAME "." ADD LPARENTH item RPARENTH
+    '''
+def p_item(p):
+    '''item : number
+            | STRINGS
+            | CHARS
+    '''
+
+def p_contenido_lista(p):
+    '''contenidoLista : contenidoListaNumerica
+                         | contenidoListaString
+    '''
+
+def p_contenido_lista_numeric(p):
+    '''contenidoListaNumerica : number
+                                | number "," contenidoListaNumerica
+    '''
+
+def p_contenido_lista_string(p):
+    '''contenidoListaString : STRINGS
+                            | STRINGS "," contenidoListaString
+    '''
+
+def p_todo_tipo_dato(p):
+    '''todoTipoDato : tipoDatoNumerico
+                    | STRING
+                    | CHAR           
+    '''
+    #| BOOLEAN
 
 
 
