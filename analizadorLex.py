@@ -136,15 +136,15 @@ literals = [',','.',':',';']
 
 #Inicio Alejandro Paz               
 def t_DECIMALS(t):
-    r'(\-|\+)?\d+\.\d+'
+    r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
 def t_INTEGERS(t):
-    r'(\-|\+)?\d+'
+    r'\d+'
     t.value = int(t.value)
     return t
-
+    #borrado momentaneo del mas y menos
 #Fin Alejandro Paz
 
 #Inicio Lenin Freire

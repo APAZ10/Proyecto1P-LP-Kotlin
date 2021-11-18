@@ -11,6 +11,7 @@ def p_sentencia(p):
 def p_asignacion(p):
     '''asignacion : asignacionBoolean
                     | asignacionInt
+                    | asignacionString
     '''
 
 def p_asignacion_boolean(p):
@@ -46,6 +47,7 @@ def p_boolean_expression(p):
 def p_boolean_stringexpression(p):
     '''stringBooleanExpression : STRINGS stringOperator STRINGS
                                 | CHARS stringOperator CHARS
+                                | equalsString
     '''
 
 def p_boolean_numberexpression(p):
@@ -118,6 +120,37 @@ def p_matoperator(p):
                     | MODULO
     '''
 #Arreglar problemas con menos y mas
+'''Asignacion String'''
+
+def p_asignacion_string(p):
+    '''asignacionString : tipoVariable NAME ':' STRING ASSIGN resultadoString
+                        | tipoVariable NAME ASSIGN resultadoString
+                        | NAME ASSIGN resultadoString
+    '''
+
+def p_resultadostring(p):
+    '''resultadoString : tipoString
+                        | metodoPlus
+                        | LPARENTH resultadoString RPARENTH
+    '''
+
+'''Metodo Plus String'''
+
+def p_metodoplusstring(p):
+    '''metodoPlus : resultadoString PLUS resultadoString
+                    | resultadoString "." PLUSSTRING LPARENTH resultadoString RPARENTH
+    '''
+
+def p_tipostring(p):
+    '''tipoString : STRINGS
+                    | NAME
+    '''
+
+'''Metodo Equals String'''
+
+def p_metodoequalsstring(p):
+    '''equalsString : resultadoString "." EQUALSSTRING LPARENTH resultadoString RPARENTH
+    '''
 
 #Fin Lenin Freire
 
