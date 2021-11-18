@@ -1,9 +1,12 @@
 import ply.yacc as yacc
 from analizadorLex import tokens
 
+def p_sentencia(p):
+    '''statement : asignacion
+    '''
 
 #Inicio Alejandro Paz
-''' Completo var saludo:Boolean=true'''
+''' Asignacion Booleana, '''
 
 def p_asignacion(p):
     '''asignacion : asignacionBoolean
@@ -26,6 +29,7 @@ def p_condicion(p):
                 | NOT condicion
                 | condicion numberOperator condicion
                 | condicion logicOperator condicion
+                | resultado numberOperator resultado
     '''
 
 def p_condicion_parentesis(p):
@@ -39,12 +43,12 @@ def p_boolean_expression(p):
                         | stringBooleanExpression
     '''
 
-def p_stringexpression(p):
+def p_boolean_stringexpression(p):
     '''stringBooleanExpression : STRINGS stringOperator STRINGS
                                 | CHARS stringOperator CHARS
     '''
 
-def p_numberexpression(p):
+def p_boolean_numberexpression(p):
     '''numberBooleanExpression : number numberOperator number
     '''
 
@@ -78,6 +82,8 @@ def p_stringoperator(p):
 
 
 #Inicio Lenin Freire
+''' Asignacion Numerica, '''
+
 def p_asignacion_int(p):
     '''asignacionInt : tipoVariable NAME ':' tipoDatoNumerico ASSIGN resultado
                         | tipoVariable NAME ASSIGN resultado
@@ -120,6 +126,9 @@ def p_matoperator(p):
 
 
 #Inicio Kevin Bautista
+''' , '''
+
+
 
 #Fin Kevin Bautista
 

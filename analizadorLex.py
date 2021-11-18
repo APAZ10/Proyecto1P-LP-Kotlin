@@ -195,3 +195,11 @@ while True:
         break
     print(tok)
 '''
+
+lexer.input("val numero=10 + 10")
+
+while True:
+    tok = lexer.token()
+    if not tok: 
+        break
+    print(tok)
