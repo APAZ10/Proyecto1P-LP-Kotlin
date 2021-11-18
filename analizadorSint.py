@@ -5,7 +5,12 @@ def p_sentencia(p):
     '''statement : asignacion
                     | metodos
     '''
-
+def p_metodos(p):
+    '''metodos : metodoAddLista
+                | metodoRemoveLista
+                | equalsString
+                | metodoPlus
+    '''
 #Inicio Alejandro Paz
 ''' Asignacion Booleana, '''
 
@@ -142,6 +147,7 @@ def p_resultadostring(p):
 def p_metodoplusstring(p):
     '''metodoPlus : resultadoString PLUS resultadoString
                     | resultadoString "." PLUSSTRING LPARENTH resultadoString RPARENTH
+                    | NAME "." PLUSSTRING LPARENTH resultadoString RPARENTH
     '''
 
 def p_tipostring(p):
@@ -153,16 +159,12 @@ def p_tipostring(p):
 
 def p_metodoequalsstring(p):
     '''equalsString : resultadoString "." EQUALSSTRING LPARENTH resultadoString RPARENTH
+                    | NAME "." EQUALSSTRING LPARENTH resultadoString RPARENTH
     '''
 
 #Fin Lenin Freire
 
 #Inicio Kevin Bautista
-def p_metodos(p):
-    '''metodos : metodoAddLista
-                | equalsString
-                | metodoPlus
-    '''
 def p_asignacion_char(p):
     '''asignacionChar : tipoVariable NAME ':' CHAR ASSIGN CHARS
                         | tipoVariable NAME ASSIGN CHARS
@@ -178,6 +180,11 @@ def p_asignacion_lista(p):
 def p_metodo_add_lista(p):
     '''metodoAddLista : NAME "." ADD LPARENTH item RPARENTH
     '''
+
+def p_metodo_remove_lista(p):
+    '''metodoRemoveLista : NAME "." REMOVEAT LPARENTH INTEGERS RPARENTH
+    '''
+
 def p_item(p):
     '''item : number
             | STRINGS
