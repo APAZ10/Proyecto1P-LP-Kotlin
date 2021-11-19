@@ -3,13 +3,15 @@ from analizadorLex import tokens
 
 def p_sentencia(p):
     '''statement : asignacion
-                    | metodos
+                | metodos
     '''
 def p_metodos(p):
     '''metodos : metodoAddLista
                 | metodoRemoveLista
                 | equalsString
                 | metodoPlus
+                | metodoIsEmptyConjunto
+                | metodoContainsConjunto
     '''
 #Inicio Alejandro Paz
 ''' Asignacion Booleana, '''
@@ -20,6 +22,7 @@ def p_asignacion(p):
                     | asignacionString
                     | asignacionChar
                     | asignacionLista
+                    | asignacionConjunto
     '''
 
 def p_asignacion_boolean(p):
@@ -50,6 +53,8 @@ def p_boolean_expression(p):
                         | FALSE
                         | numberBooleanExpression
                         | stringBooleanExpression
+                        | metodoIsEmptyConjunto
+                        | metodoContainsConjunto
     '''
 
 def p_boolean_stringexpression(p):
@@ -84,6 +89,20 @@ def p_logicoperator(p):
 def p_stringoperator(p):
     '''stringOperator : EQUALS
                     | NOTEQUALS
+    '''
+
+''' Asignacion conjuntos '''
+def p_asignacion_conjunto(p):
+    '''asignacionConjunto : tipoVariable NAME ASSIGN SETOF LPARENTH contenidoLista RPARENTH
+    '''
+    # verificar mezcla de tipo de datos, y <>
+
+def p_metodo_isempty_conjunto(p):
+    '''metodoIsEmptyConjunto : NAME "." EMPTY LPARENTH RPARENTH
+    '''
+
+def p_metodo_contains_conjunto(p):
+    '''metodoContainsConjunto : NAME "." CONTAINS LPARENTH contenidoMetodo RPARENTH
     '''
 
 #Fin Alejandro Paz
@@ -189,11 +208,17 @@ def p_item(p):
     '''item : number
             | STRINGS
             | CHARS
+            | NAME
     '''
 
 def p_contenido_lista(p):
     '''contenidoLista : contenidoListaNumerica
                          | contenidoListaString
+    '''
+
+def p_contenido_metodo(p):
+    '''contenidoMetodo : contenidoLista
+                        | NAME
     '''
 
 def p_contenido_lista_numeric(p):
@@ -242,5 +267,4 @@ while True:
    except EOFError:
        break
    if not s: continue
-   result = parser.parse(s)
-   print(result)
+   parser.parse(s)
