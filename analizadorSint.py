@@ -1,9 +1,12 @@
 import ply.yacc as yacc
 from analizadorLex import tokens
 
-def p_sentencia(p):
+def p_statement(p):
     '''statement : asignacion
                 | metodos
+                | estructuraIf
+                | estructuraLoop
+                | funcion
     '''
 def p_metodos(p):
     '''metodos : metodoAddLista
@@ -267,6 +270,66 @@ def p_todo_tipo_dato(p):
     '''
     #| BOOLEAN
 
+    '''ESTRUCTURA DE DATOS IF'''
+def p_estructuraif(p):
+    '''estructuraIf : IF LPARENTH condicion RPARENTH LCBRACKET structureBody RCBRACKET 
+                    | IF LPARENTH condicion RPARENTH LCBRACKET structureBody RCBRACKET estructureElse
+    '''
+def p_estructuraelse(p):
+    '''estructureElse : ELSE LCBRACKET structureBody RCBRACKET
+    '''
+
+def p_structurebody(p):
+    '''structureBody : statement
+    '''
+
+    '''ESTRUCTURA LOOP'''
+def p_estructuraloop(p):
+    '''estructuraLoop : estructuraWhile
+                    | estructuraFor
+    '''
+
+def p_estructurawhile(p):
+    '''estructuraWhile : WHILE LPARENTH condicion RPARENTH LCBRACKET structureBody RCBRACKET
+    '''
+
+def p_estructurafor(p):
+    '''estructuraFor : FOR LPARENTH NAME IN itemFor RPARENTH LCBRACKET structureBody RCBRACKET
+    '''
+
+def p_itemfor(p):
+    '''itemFor : NAME
+                | resultadoString
+    '''
+
+def p_funcion(p):
+    '''funcion : FUN NAME LPARENTH parameters RPARENTH LCBRACKET structureFunction RCBRACKET 
+                | FUN NAME LPARENTH RPARENTH LCBRACKET structureFunction RCBRACKET
+                | FUN NAME LPARENTH parameters RPARENTH ":" todoTipoDato LCBRACKET structureFunction RCBRACKET 
+                | FUN NAME LPARENTH RPARENTH ":" todoTipoDato LCBRACKET structureFunction RCBRACKET
+    '''
+
+def p_structurefunction(p):
+    '''structureFunction : bodyFunction RETURN contenidoPrint
+                        | bodyFunction structureFunction
+                        | RETURN contenidoPrint
+                        | bodyFunction
+    '''
+    
+def p_bodyfunction(p):
+    '''bodyFunction : asignacion
+                | metodos
+                | estructuraIf
+                | estructuraLoop
+    '''
+
+def p_parameters(p):
+    '''parameters : parametersTipo
+                | parametersTipo "," parameters
+    '''
+def p_parameterstipo(p):
+    '''parametersTipo : NAME ":" todoTipoDato
+    '''
 
 
 #Fin Kevin Bautista
