@@ -52,6 +52,7 @@ reserved = {
     'Long':'LONG',
     'Short':'SHORT',
     'Boolean':'BOOLEAN',
+    'readLine':'READLINE',
     #Fin Lenin Freire
 
 

@@ -12,6 +12,8 @@ def p_metodos(p):
                 | metodoPlus
                 | metodoIsEmptyConjunto
                 | metodoContainsConjunto
+                | lectura
+                | impresion
     '''
 #Inicio Alejandro Paz
 ''' Asignacion Booleana, '''
@@ -55,6 +57,7 @@ def p_boolean_expression(p):
                         | stringBooleanExpression
                         | metodoIsEmptyConjunto
                         | metodoContainsConjunto
+                        | NAME
     '''
 
 def p_boolean_stringexpression(p):
@@ -70,6 +73,7 @@ def p_boolean_numberexpression(p):
 def p_number(p):
     '''number : INTEGERS
             | DECIMALS
+            | NAME
     '''
 
 def p_numberoperator(p):
@@ -159,6 +163,7 @@ def p_resultadostring(p):
     '''resultadoString : tipoString
                         | metodoPlus
                         | LPARENTH resultadoString RPARENTH
+                        | lectura
     '''
 
 '''Metodo Plus String'''
@@ -181,6 +186,30 @@ def p_metodoequalsstring(p):
                     | NAME "." EQUALSSTRING LPARENTH resultadoString RPARENTH
     '''
 
+'''Impresion de datos'''
+
+def p_impresion(p):
+    '''impresion : impresionTipo LPARENTH RPARENTH
+                | impresionTipo LPARENTH contenidoPrint RPARENTH
+    '''
+
+def p_impresiontipo(p):
+    '''impresionTipo : PRINTLN
+                    | PRINT
+    '''
+
+def p_contenido(p):
+    '''contenidoPrint : condicion
+                    | resultado
+                    | resultadoString
+                    | item
+    '''
+
+'''Lectura de datos'''
+
+def p_lectura(p):
+    '''lectura : READLINE LPARENTH RPARENTH
+    '''
 #Fin Lenin Freire
 
 #Inicio Kevin Bautista
