@@ -7,6 +7,10 @@ def p_statement(p):
                 | estructuraIf
                 | estructuraLoop
                 | funcion
+                | NAME INCREMENT
+                | NAME DECREMENT
+                | clase
+                | statement statement
     '''
 def p_metodos(p):
     '''metodos : metodoAddLista
@@ -19,6 +23,12 @@ def p_metodos(p):
                 | impresion
     '''
 #Inicio Alejandro Paz
+
+def p_clase(p):
+    '''clase : CLASS NAME LPARENTH parameters RPARENTH LCBRACKET structureBody RCBRACKET
+            | CLASS NAME LCBRACKET structureBody RCBRACKET
+    '''
+
 ''' Asignacion Booleana, '''
 
 def p_asignacion(p):
@@ -44,9 +54,8 @@ def p_tipo(p):
 def p_condicion(p):
     '''condicion : booleanExpression
                 | NOT condicion
-                | condicion numberOperator condicion
                 | condicion logicOperator condicion
-                | resultado numberOperator resultado
+                | NAME
     '''
 
 def p_condicion_parentesis(p):
@@ -60,7 +69,6 @@ def p_boolean_expression(p):
                         | stringBooleanExpression
                         | metodoIsEmptyConjunto
                         | metodoContainsConjunto
-                        | NAME
     '''
 
 def p_boolean_stringexpression(p):
@@ -70,7 +78,7 @@ def p_boolean_stringexpression(p):
     '''
 
 def p_boolean_numberexpression(p):
-    '''numberBooleanExpression : number numberOperator number
+    '''numberBooleanExpression : resultado numberOperator resultado
     '''
 
 def p_number(p):
@@ -91,6 +99,8 @@ def p_numberoperator(p):
 def p_logicoperator(p):
     '''logicOperator : AND
                     | OR
+                    | EQUALS
+                    | NOTEQUALS
     '''
 
 def p_stringoperator(p):
@@ -163,10 +173,11 @@ def p_asignacion_string(p):
     '''
 
 def p_resultadostring(p):
-    '''resultadoString : tipoString
+    '''resultadoString : STRINGS
                         | metodoPlus
                         | LPARENTH resultadoString RPARENTH
                         | lectura
+                        | NAME
     '''
 
 '''Metodo Plus String'''
@@ -175,11 +186,6 @@ def p_metodoplusstring(p):
     '''metodoPlus : resultadoString PLUS resultadoString
                     | resultadoString "." PLUSSTRING LPARENTH resultadoString RPARENTH
                     | NAME "." PLUSSTRING LPARENTH resultadoString RPARENTH
-    '''
-
-def p_tipostring(p):
-    '''tipoString : STRINGS
-                    | NAME
     '''
 
 '''Metodo Equals String'''
@@ -281,6 +287,7 @@ def p_estructuraelse(p):
 
 def p_structurebody(p):
     '''structureBody : statement
+                        | statement structureBody
     '''
 
     '''ESTRUCTURA LOOP'''
@@ -310,10 +317,9 @@ def p_funcion(p):
     '''
 
 def p_structurefunction(p):
-    '''structureFunction : bodyFunction RETURN contenidoPrint
+    '''structureFunction : bodyFunction
                         | bodyFunction structureFunction
                         | RETURN contenidoPrint
-                        | bodyFunction
     '''
     
 def p_bodyfunction(p):
@@ -331,9 +337,7 @@ def p_parameterstipo(p):
     '''parametersTipo : NAME ":" todoTipoDato
     '''
 
-
 #Fin Kevin Bautista
-
 
 
 
@@ -342,21 +346,33 @@ def p_parameterstipo(p):
 
 parser = yacc.yacc()
 
-#data = '''
-#var saludo:Boolean=(!(1<10)&&(1>0)||('a'=='a'))
-#'''
-#data = '''
-#var numero=1
-#'''
-#with open("testFile.txt", "r") as archivo:
-#    data = archivo.read()
 
-#parser.parse(data)
+with open("testFile.txt", "r") as archivo:
+    s = archivo.read()
 
+
+
+'''s = 
+class Account {
+    var acc: Int=0
+    var name: String="mi cuenta"
+    var amount: Float=3.56
+    
+    fun deposito(){
+        print("Se ha realizado un deposito")
+    } 
+}
+'''
+parser.parse(s)
+
+
+'''
 while True:
-   try:
-       s = input('valor > ')
-   except EOFError:
-       break
-   if not s: continue
-   parser.parse(s)
+    try:
+        s = input('valor > ')
+    except EOFError:
+        break
+    if not s: continue
+
+    parser.parse(s)
+'''
