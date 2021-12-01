@@ -42,6 +42,8 @@ def p_asignacion(p):
                     | asignacionConjunto
     '''
 
+## REGLA SEMANTICA : DECLARAR LA VARIABLE BOOLEAN PERMITE SOLO RECIBIR UN BOOLEAN
+
 def p_asignacion_boolean(p):
     '''asignacionBoolean : tipoVariable NAME ':' BOOLEAN ASSIGN condicion
                             | tipoVariable NAME ASSIGN condicion
@@ -149,6 +151,8 @@ def p_tipodatonumerico(p):
                         | SHORT
     '''
 
+## REGLA SEMANTICA : OPERACIONES MATEMATICAS SOLO ENTRE NUMEROS
+
 def p_resultado(p):
     '''resultado : number
                     | resultado matOperator resultado
@@ -240,6 +244,7 @@ def p_metodo_add_lista(p):
     '''metodoAddLista : NAME "." ADD LPARENTH item RPARENTH
     '''
 
+## REGLA SEMANTICA : REMOVE AT DEBE RECIBIR UN INTEGER
 def p_metodo_remove_lista(p):
     '''metodoRemoveLista : NAME "." REMOVEAT LPARENTH INTEGERS RPARENTH
     '''

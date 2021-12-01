@@ -4,7 +4,6 @@ import ply.yacc as yacc
 import analizadorLex
 import analizadorSint
 
-fontSize = 12
 
 class TextLineNumbers(Canvas):
     def __init__(self, *args, **kwargs):
@@ -15,7 +14,6 @@ class TextLineNumbers(Canvas):
         self.textwidget = text_widget
         
     def redraw(self, *args):
-        '''redraw line numbers'''
         self.delete("all")
 
         i = self.textwidget.index("@0,0")
@@ -24,26 +22,24 @@ class TextLineNumbers(Canvas):
             if dline is None: break
             y = dline[1]
             linenum = str(i).split(".")[0]
-            self.create_text(2,y,anchor="nw", text=linenum, font=("Courier",fontSize))
+            self.create_text(2,y,anchor="nw", text=linenum, font=("Courier",12))
             i = self.textwidget.index("%s+1line" % i)
 
 class CustomText(Text):
     def __init__(self, *args, **kwargs):
         Text.__init__(self, *args, **kwargs)
 
-        # create a proxy for the underlying widget
         self._orig = self._w + "_orig"
         self.tk.call("rename", self._w, self._orig)
         self.tk.createcommand(self._w, self._proxy)
 
     def _proxy(self, *args):
-        # let the actual widget perform the requested action
+
         try:
             cmd = (self._orig,) + args
             result = self.tk.call(cmd)
 
-            # generate an event if something was added or deleted,
-            # or the cursor position changed
+
             if (args[0] in ("insert", "replace", "delete") or 
                 args[0:3] == ("mark", "set", "insert") or
                 args[0:2] == ("xview", "moveto") or
@@ -53,7 +49,6 @@ class CustomText(Text):
             ):
                 self.event_generate("<<Change>>", when="tail")
 
-            # return what the actual widget returned
             return result
         except:
             pass
@@ -129,16 +124,15 @@ class Analizador():
     def populate(self, data):
         
         #self.clear_frame(self.contenedor_token)
-        for i in data:
-
-            columna = Frame(self.contenedor_token, width=150)
-            Label(columna, text=f"{str(i)}").pack(side=LEFT)
+        self.txttokens.config(state="normal")
+        self.txttokens.delete('1.0', "end")
+        for i in list(data.keys())[::-1]:
+            for y in list(data[i])[::-1]:
+                self.txttokens.insert("1.0", y.type+" ")
             self.txttokens.insert("1.0", str(i)+" ")
-            for y in data[i]:
-                Label(columna, text=f"{str(y.type)}").pack(side=LEFT)
-                #self.txttokens.insert("1.0", y.type+" ")
 
-            columna.pack(side="top",fill="x",expand=1)
+            self.txttokens.insert("1.0", "\n")
+            
         
     def clear_frame(self,frame):
         for widgets in frame.winfo_children():
@@ -156,7 +150,7 @@ class Analizador():
         # Contenedor code
         contenedor_texto = Frame(window, width=60, height=15, bg="#F9C005")
         Label(contenedor_texto, text="Code").pack()
-        self.code = CustomText(contenedor_texto, width=45, height=15, font=("Courier",fontSize)) 
+        self.code = CustomText(contenedor_texto, width=45, height=15, font=("Courier",12)) 
         self.sb = Scrollbar(contenedor_texto, orient="vertical", command=self.code.yview)
         self.code.configure(yscrollcommand=self.sb.set)
         self.linenumbers = TextLineNumbers(contenedor_texto, width=30)
@@ -172,14 +166,14 @@ class Analizador():
         # contenedor consola
         contenedor_consola = Frame(window, width=60, height=15, bg="#F90505")
         Label(contenedor_consola, text="Errores").pack()
-        self.txterrors = Text(contenedor_consola, width=45, height=15, font=("Courier",fontSize))
+        self.txterrors = Text(contenedor_consola, width=45, height=15, font=("Courier",12))
         self.txterrors.config(state="disabled")
         self.txterrors.pack()
 
         # contenedor tokens
         self.contenedor_token = Frame(window, width=120, height=15, bg="#052CF9")
         Label(self.contenedor_token, text="Tokens").pack()
-        self.txttokens = Text(self.contenedor_token, width=90, height=15, font=("Courier",fontSize))
+        self.txttokens = CustomText(self.contenedor_token, width=90, height=15, font=("Courier",12))
 
         self.sbTokens = Scrollbar(self.contenedor_token, orient="vertical", command=self.txttokens.yview)
         self.txttokens.configure(yscrollcommand=self.sbTokens.set)
