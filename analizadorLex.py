@@ -1,6 +1,8 @@
 from re import M
 from ply import lex
 
+errors = []
+
 reserved = {
     #Inicio Alejandro Paz
     'class':'CLASS',
@@ -178,7 +180,9 @@ def t_newline(t):
 t_ignore = ' \t'
 
 def t_error(t):
-    print("Componente léxico no encontrado '%s'" % t.value[0])
+    error = "Componente léxico no encontrado '%s'" % t.value[0]
+    print(error)
+    errors.append(error)
     t.lexer.skip(1)
 
 lexer = lex.lex()

@@ -1,6 +1,8 @@
 import ply.yacc as yacc
 from analizadorLex import tokens
 
+errors = []
+
 def p_statement(p):
     '''statement : asignacion
                 | metodos
@@ -339,6 +341,12 @@ def p_parameterstipo(p):
 
 #Fin Kevin Bautista
 
+def p_error(p):
+    if p:
+        mssg= f'Syntax error at token {p.type} {p}'
+    else:
+        mssg= 'Syntax error at EOF'
+    errors.append(mssg)
 
 
 
@@ -347,8 +355,8 @@ def p_parameterstipo(p):
 parser = yacc.yacc()
 
 
-with open("testFile.txt", "r") as archivo:
-    s = archivo.read()
+#with open("testFile.txt", "r") as archivo:
+#    s = archivo.read()
 
 
 
@@ -363,7 +371,7 @@ class Account {
     } 
 }
 '''
-parser.parse(s)
+#parser.parse(s)
 
 
 '''
