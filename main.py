@@ -4,7 +4,6 @@ import ply.yacc as yacc
 import analizadorLex
 import analizadorSint
 
-
 class TextLineNumbers(Canvas):
     def __init__(self, *args, **kwargs):
         Canvas.__init__(self, *args, **kwargs)
@@ -123,7 +122,6 @@ class Analizador():
 
     def populate(self, data):
         
-        #self.clear_frame(self.contenedor_token)
         self.txttokens.config(state="normal")
         self.txttokens.delete('1.0', "end")
         for i in list(data.keys())[::-1]:
@@ -137,10 +135,6 @@ class Analizador():
     def clear_frame(self,frame):
         for widgets in frame.winfo_children():
             widgets.destroy()
-
-    #def onFrameConfigure(self,canvas):
-    #    '''Reset the scroll region to encompass the inner frame'''
-    #    canvas.configure(scrollregion=canvas.bbox("all"))
 
     def __init__(self, window):
         self.window = window

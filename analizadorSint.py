@@ -283,6 +283,7 @@ def p_todo_tipo_dato(p):
     '''
     #| BOOLEAN
 
+## REGLA SEMANTICA : IF SOLO ACEPTA UN RESULTADO BOOLEANO
     '''ESTRUCTURA DE DATOS IF'''
 def p_estructuraif(p):
     '''estructuraIf : IF LPARENTH condicion RPARENTH LCBRACKET structureBody RCBRACKET 
@@ -302,7 +303,7 @@ def p_estructuraloop(p):
     '''estructuraLoop : estructuraWhile
                     | estructuraFor
     '''
-
+## REGLA SEMANTICA : WHILE SOLO ACEPTA UN RESULTADO BOOLEANO
 def p_estructurawhile(p):
     '''estructuraWhile : WHILE LPARENTH condicion RPARENTH LCBRACKET structureBody RCBRACKET
     '''
