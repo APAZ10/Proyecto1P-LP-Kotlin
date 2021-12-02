@@ -123,7 +123,7 @@ def p_metodo_isempty_conjunto(p):
     '''
 
 def p_metodo_contains_conjunto(p):
-    '''metodoContainsConjunto : NAME "." CONTAINS LPARENTH contenidoMetodo RPARENTH
+    '''metodoContainsConjunto : NAME "." CONTAINS LPARENTH item RPARENTH
     '''
 
 #Fin Alejandro Paz
